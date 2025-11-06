@@ -11,9 +11,9 @@ import java.util.HashMap;
 public class Celebrities {
     public static void main(String[] args) {
         String[] guestsList = {"Albert", "Benedicte", "CHristophe", "Delphine", "Edouard", "Francoise", "Gaston", "Heloise"};
+        
+        // hashmap contenant les connaisances de chaque invité
         Map<Integer, int[]> guestRelations = new HashMap<Integer, int[]>();
-        Map<Integer, boolean[]> guestsKnowledge = new HashMap<Integer, boolean[]>();
-
         guestRelations.put(0, new int[]{1, 4, 5});
         guestRelations.put(1, new int[]{2, 4, 5});
         guestRelations.put(2, new int[]{1, 3, 4, 5});
@@ -23,17 +23,17 @@ public class Celebrities {
         guestRelations.put(6, new int[]{1, 2, 4, 5, 7});
         guestRelations.put(7, new int[]{1, 3, 4, 5, 6});
 
-        guestsKnowledge.put(0, new boolean[8]);
-        guestsKnowledge.put(1, new boolean[8]);
-        guestsKnowledge.put(2, new boolean[8]);
-        guestsKnowledge.put(3, new boolean[8]);
-        guestsKnowledge.put(4, new boolean[8]);
-        guestsKnowledge.put(5, new boolean[8]);
-        guestsKnowledge.put(6, new boolean[8]);
-        guestsKnowledge.put(7, new boolean[8]);
-
-
-        //System.out.println(getCelebrities(guestRelations,guestsKnowledge));
+        /* hashmap determinant si l'invité est connu ou pas de l'invité correspondant. 
+         * l'indice du tableau de booleen correspond à l'indice du tableau des invités
+         *  (ex: true en 3eme pos signifie que le 3eme invité le connait 
+         */
+      
+        int n = guestsList.length;
+        Map<Integer, boolean[]> guestsKnowledge = new HashMap<>(n);
+        for (int i = 0; i < n; i++) {
+            guestsKnowledge.put(i, new boolean[n]);
+        }
+        
         for (Entry<Integer, boolean[]> guest : guestsKnowledge.entrySet()) {
             getKnowers(guest.getKey(), guestRelations, guestsKnowledge);
         }
@@ -47,7 +47,7 @@ public class Celebrities {
     }
 
     private static ArrayList<Integer> getCelebrities(Map<Integer, boolean[]> guestsKnowledge) {
-        /* Si la personne est connu de tous, c'est une célébrité donc on parcourt la hashmap guestsKnowledge pour rechercher les tableaux complètement true. */
+        /* Si la personne est connue de tous, c'est une célébrité donc on parcourt la hashmap guestsKnowledge pour rechercher les tableaux complètement true. */
         ArrayList<Integer> celebritiesList = new ArrayList<>();
         for(Entry<Integer, boolean[]> guest : guestsKnowledge.entrySet()) {
             int guestId = guest.getKey();
@@ -95,9 +95,5 @@ public class Celebrities {
         }
         guestsKnowledge.put(guestId, arr);
     }
-
-
-
-
 }
 
