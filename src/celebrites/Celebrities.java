@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 
 public class Celebrities {
@@ -53,13 +54,7 @@ public class Celebrities {
             final int guestId = guest.getKey();
             final boolean[] knownBy = guest.getValue();
 
-            boolean allKnown = true;
-            for (final boolean known : knownBy) {
-                if (!known) {
-                    allKnown = false;
-                    break;
-                }
-            }
+          boolean allKnown = IntStream.range(0, knownBy.length).allMatch(i -> knownBy[i]);
 
             if (allKnown) {
                 celebritiesList.add(guestId);
