@@ -6,11 +6,23 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.stream.IntStream;
+import java.util.logging.*;
 
 
 public class Celebrities {
-    public static void main(final String[] args) {
+  private static final Logger log = Logger.getLogger(Celebrities.class.getName());
+  public static void main(final String[] args) {
         final String[] guestsList = {"Albert", "Benedicte", "CHristophe", "Delphine", "Edouard", "Francoise", "Gaston", "Heloise"};
+
+        // Permet au logger de ne pas afficher le timestamp
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+        "%4$s %3$s - %5$s%6$s%n");
+        Logger root = Logger.getLogger("");
+        root.setLevel(Level.INFO);
+        for (Handler h : root.getHandlers()) {
+          h.setLevel(Level.INFO);
+          h.setFormatter(new SimpleFormatter());
+        }
 
         // hashmap contenant les connaisances de chaque invité
         final Map<Integer, int[]> guestRelations = new HashMap<Integer, int[]>();
@@ -39,10 +51,10 @@ public class Celebrities {
         }
 
         for (final Map.Entry<Integer, boolean[]> guest : guestsKnowledge.entrySet()) {
-            System.out.println(Arrays.toString(guest.getValue()));
+          log.log(Level.INFO, "celebrities={0}",Arrays.toString(guest.getValue()));
 
         }
-        System.out.println(Celebrities.getCelebrities(guestsKnowledge));
+       log.log(Level.INFO, "celebrities final list={0}", Celebrities.getCelebrities(guestsKnowledge));
 
     }
 
@@ -80,9 +92,9 @@ public class Celebrities {
             // Pour chaque invité, on récupère la liste des invités qu'il connait
             final int[] knownGuests = relation.getValue();
 
-            for (final int knownGuest : knownGuests) {
+            for (final Integer knownGuest : knownGuests) {
                 if (knownGuest == guestId) {
-                    System.out.println(knownGuest);
+                    log.log(Level.INFO, "knownGuest={0}", knownGuest);
                     arr[knower] = true;
                     break;
                 }
