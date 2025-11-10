@@ -87,9 +87,3 @@ Le programme trace des informations via `java.util.logging` (format simple, sans
 
 * `onlyKnowCelebrities(ArrayList<Integer> candidates, Map<Integer,int[]> guestRelations)`
   Filtre les candidats qui **connaissent** au moins un non-candidat, jusqu’à convergence (R2).
-
-### Notes d’implémentation
-
-* Les relations sont encodées via `Map<Integer, int[]>` (indices 0..7).
-* Amélioration suggérée : remplacer les `new boolean[8]` par `new boolean[n]` pour éviter les valeurs codées en dur ; utiliser `Set<Integer>` pour les recherches d’appartenance en O(1).
-* Les noms peuvent être normalisés (accents/majuscules) pour cohérence d’affichage.
